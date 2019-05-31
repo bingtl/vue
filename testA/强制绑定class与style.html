@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+.aclass{
+    color: #e55954;
+}
+.bclass{
+    color: aqua;
+}
+.cclass{
+    font-size: 20px;
+}
+</style>
+<body>
+    <div id="app"> <!--view-->
+       <h2>1 class绑定：  :class='xxx'</h2>
+            <p class="cclass" :class="a">测试字符串绑定 </p> <br>
+
+            <p :class="{aclass:isA,bclass:isB}">测试对象绑定</p> <br>
+
+            <p :class="['aclass', 'bclass']">测试数组绑定 </p>
+       <h2>2 style绑定</h2>
+            <p :style="{color:activecolor, fontSize: fontsize + 'px'}">测试style绑定</p>
+       <button @click="update">更新</button>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="../vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ //配置对象
+         el: '#app', //element 选择器，查找vue管理的区域
+         data: { //data：  数据（model）
+             a: 'aclass',
+             isA:true,
+             isB:false,
+             activecolor:'#e55954',
+             fontsize: '30'
+         },
+         methods: {
+            update(){
+                this.a = 'bclass',
+                this.isA = !this.isA
+                this.isB = !this.isB
+                this.activecolor = 'green'
+                this.fontsize = '50'
+            }
+         },
+     })
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+        <h2>1 双大括号表达式</h2>
+           <p>{{msg}}</p>
+           <p>{{msgb.toUpperCase()}}</p>
+           <p>计算前{{msgc}}计算后{{parseInt(msgc) + 6}}</p>
+        
+        <h2>2. v-text 和 v-html 的区别：前者会按文本解析，后者会将内容尽量解析为标签 </h2>
+            <p v-text="msgd"></p> <!--textContent-->
+            <p v-html="msgd"></p> <!--innerHTML-->
+
+        <h2>3. 指令一：强制数据绑定</h2>
+            <img v-bind:src="imgurl" alt="">
+            <!-- 将一般文本转换为表达式，在左边加一个： -->
+            <img :src="imgurl" alt="">
+        <h2>4. 指令二：绑定事件监听</h2>
+            <button v-on:click="test">test</button>
+            <!--绑定监听使用@符号 -->
+            <button @click="test2(msg)">test</button>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="../vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ //配置对象
+         el: '#app', //element 选择器，查找vue管理的区域
+         data: { //data：  数据（model）
+             msg: '双大括号表达式测试,可以在里面进行计算或者处理数据',
+             msgb:'sajdjanj',
+             msgc:'5',
+             msgd:'<a href="www.baidu.com">dinji</a>',
+             imgurl:'http://www.gulixueyuan.com/themes/june/img/logo-green1.png?version=8.3.2'
+         },
+         methods: {
+            test() {
+                alert('点击')
+            },
+            test2(content) {
+                alert(content)
+            }
+         }, 
+     })
+</script>
+<!-- 
+ -->
+</html>

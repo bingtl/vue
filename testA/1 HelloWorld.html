@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+        <input type="text" v-model="message">
+        <p>{{message}}</p>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="../vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ //配置对象
+         el: '#app', //element 选择器，查找vue管理的区域
+         data: { //data：  数据（model）
+             message: 'Hello Vue!'
+         }
+     })
+</script>
+<!-- 
+    MVVM：
+    model：         模型，本质上是数据对象（data）
+    view：          视图层，模板页面
+    viewModel：     视图模型（vue的实例） 也就是上面的vm
+
+ -->
+</html>

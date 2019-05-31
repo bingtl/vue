@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="app">
+        姓：       <input type="text" placeholder="姓" v-model="x"> <br>
+        名：       <input type="text" placeholder="m" v-model="m"><br>
+        姓名单向： <input type="text" placeholder="姓" v-model="xm"><br>
+        姓名单向： <input type="text" placeholder="姓" v-model="xm2"><br>
+        姓名双向： <input type="text" placeholder="姓" v-model="xm3">
+    </div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data:{
+            x:'A',
+            m:'B'
+        },
+        computed: { //计算属性中的一个方法，方法的返回值作为属性值
+            xm () {
+                return this.x + ' ' + this.m
+            },
+            
+            // 计算属性 set 与 git
+            xm3:{
+
+                // 回调函数 计算并返回当前属性的值，读取当前属性值时回调
+                get() {
+                    return this.x + ' ' + this.m
+                },
+                // 监视当前 属性值发生改变时回调，更新相关的数据
+                set(val) { //val 就是xm3的最新属性值
+                    const name = val.split(' ')
+                    this.x = name[0]
+                    this.m = name[1]
+                }
+            }
+        },
+        watch: {
+            // 配置监视
+            x: function(newval,oldval){ //x值发生变化修改 xm的值
+                console.log(this) //this就是vm对象
+                this.xm2 = newval + ' ' + this.m
+            }
+        }
+    })
+    vm.$watch('m',function(val){
+        // 更新姓名
+        this.xm2 = this.x + ' ' + val
+    })
+</script>
+</html>
