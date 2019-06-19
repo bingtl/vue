@@ -1,0 +1,10 @@
+创建vue项目
+
+1 全局安装vue脚手架，一次安装终身使用 , 不确定是否安装过哪些全局插件可以通过npm list -g --dept 0查看
+npm install -g vue-cli
+
+2 使用脚手架创建项目
+vue init webpack demoa
+
+3 运行项目 （ps：可在package.json中查看到如何运行）
+npm run dev
