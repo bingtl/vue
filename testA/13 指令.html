@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+img{
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+/* [] 样式的属性选择器 */
+[v-cloak]{ 
+    display: none
+}
+</style>
+<body>
+    <div id="app"> <!--view-->
+    <h2>v-text 更新元素的 textContent</h2>
+    <span v-text="msgA"></span>
+    <h2>v-html 更新元素的innerHtml</h2>
+    <div v-html="msgB"></div>
+    <h2>v-if 如果为true，当前标签才会输出到页面</h2>
+        <span v-if="msgC">默认显示</span>
+        <span v-else>默认隐藏,需要和v-if一起使用</span>
+    <h2>v-show: 通过控制display样式来控制显示/隐藏</h2>
+        <span v-show="msgD">根据表达式之真假值，切换元素的 display CSS 属性。</span>
+        <span v-show="!msgD">默认隐藏</span>
+    <h2>v-for： 遍历数组/对象</h2>
+        <ul>
+            <li v-for="(item,index) in msgE" :key="index">{{item.name}}</li>
+        </ul>
+    <h2>v-on： 绑定事件监听，一般简写为@</h2>
+        <button v-on:click="djA">默认绑定</button>
+        <button @click="djB">@绑定</button>
+    <h2>v-bind： 强制绑定解析表达式，可以省略v-bind直接写“ ：”</h2>
+        <img v-bind:src="msgF">
+        <img :src="msgF"> 
+    <h2>v-model： 双向数据绑定</h2>
+        <input type="text" placeholder="" v-model="msgG"> <br>
+        <input type="text" placeholder="" v-model="msgH"><br>
+    <h2>ref： 指定唯一标识，vue对象通过$els属性访问这个元素对象</h2>
+        <p ref="msgI">$els访问的内容</p>
+        <button @click="ts">提示</button>
+    <h2>v-cloak： 防止闪现，与css配合：[v-cloak]{display:none}</h2>
+        <p v-cloak>{{msgJ}}</p>
+    <h2></h2>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ //配置对象
+         el: '#app', //element 选择器，查找vue管理的区域
+         data: { //data：  数据（model）
+            msgA:"我是-text的内容，原理和{{msg}}一样",
+            msgB:"<a href='www.baidu.com'>v-heml会把获取的内容尽量解析为标签</a>",
+            msgC:true,
+            msgD:true,
+            msgE:[ 
+                 {name:'AAA',age:'18'},
+                 {name:'BBB',age:'19'},
+                 {name:'CCC',age:'20'},
+                 {name:'DDD',age:'21'}
+                 ],
+            msgF:"https://cn.vuejs.org/images/logo.png",
+            msgG:"v-model默认的展示A",
+            msgJ:"防止未解析完出现 {{}} 标签，需要与css样式配合，原理是解析完成之前会匹配到标签实现隐藏，解析完成之后vue添加的标签就消失了"
+         },
+         methods: {
+            djA(){
+                alert('这个按钮是默认绑定')
+            },
+            djB(){
+                alert('这个按钮是@符号绑定')
+            },
+            ts(){
+                alert(this.$refs.msgI.textContent)
+            }
+         },
+        // 计算属性中的一个方法，方法的返回值作为属性值
+        // v-model的动态绑定要在计算属性中完成
+        computed: {
+            msgH:{
+                // 回调函数 计算并返回当前属性的值，读取当前属性值时回调
+                get() {
+                    return this.msgG
+                },
+                // 监视当前 属性值发生改变时回调，更新相关的数据
+                set(val) { //val 就是xm3的最新属性值
+                    this.msgG = val
+                }
+            }
+        }
+     })
+</script>
+
+</html>

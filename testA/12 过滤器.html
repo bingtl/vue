@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--view-->
+        <p>{{data}}</p>
+        <p>{{data | datastring}}</p>
+        <p>{{data | datastring('YYYY-MM-DD')}}</p>
+        <p>{{data | datastring('HH:mm:ss')}}</p>
+        <p>{{str | splitstr}}</p>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.24.0/moment.js"></script>
+<script>
+    // 定义过滤器 
+    Vue.filter('datastring', function (val,format) {
+        return moment(val).format(format || 'YYYY-MM-DD  HH:mm:ss')
+    })
+    Vue.filter('splitstr',function(val){
+        return val.split(".")[0]
+    })
+    // 创建vue实例
+    const vm = new Vue({ //配置对象
+        el: '#app', //element 选择器，查找vue管理的区域
+        data: { //data：  数据（model）
+            data: new Date(),
+            str:'2.5'
+        },
+
+    })
+
+</script>
+
+</html>

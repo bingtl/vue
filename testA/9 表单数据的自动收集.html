@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+        <form action="/xxx" @submit.prevent="handsubmit">
+            <span>用户名</span>
+            <input type="text" v-model="username"> <br>
+
+            <span>密码</span>
+            <input type="password" v-model="pwd"> <br>
+
+            <span>性别</span>
+            <input type="radio" id="maleA" value="女" v-model="sex"> 
+            <label for="maleA">女</label>
+            <input type="radio" id="male" value="男" v-model="sex"> 
+            <label for="male">男</label> <br>
+
+            <span>爱好</span> 
+            <input type="checkbox" id="basket" value="basket" v-model="likes"> 
+            <label for="basket">篮球</label>
+            <input type="checkbox" id="foot" value="foot" v-model="likes">
+            <label for="foot">足球</label>
+            <input type="checkbox" id="pp" value="pp" v-model="likes">
+            <label for="pp">乒乓球</label><br>
+            
+            <span>城市</span>
+            <select name="" id="" v-model="cityid">
+                <option value="">未选择</option>
+                <option :value="city.id" v-for="(city,index) in allcitys" :key="index">{{city.name}}</option>
+            </select> <br>
+
+            <span>介绍</span>
+            <textarea name="" id="" cols="30" rows="10" v-model="desc"></textarea> <br> <br>
+
+            <input type="submit" value="注册">
+        </form>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+        username:'',
+        pwd:'',
+        sex:'女',
+        likes:['foot'],
+        allcitys:[
+            {id:0,name:'bj'},
+            {id:1,name:'sh'},
+            {id:2,name:'gz'}
+        ],
+        cityid:'2',
+        desc:''
+        },
+        methods: {
+            handsubmit(){
+               console.log(this.username,this.pwd)
+            }
+        }
+    })
+</script>
+</html> 

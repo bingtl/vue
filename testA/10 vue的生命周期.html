@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+      <button @click ="destroyvm">destroy vm</button>
+      <p v-show="ishsow">循环展示</p>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ //配置对象
+         el: '#app', //element 选择器，查找vue管理的区域
+         data: { //data：  数据（model）
+            ishsow: true
+         },
+        //  初始化阶段
+         beforeCreate () {
+           console.log('创建前')  
+         },
+         created() {
+             console.log('创建后')
+         },
+         beforeMount () {
+             console.log('初始化之前')
+         },
+         mounted() {
+            console.log('初始化之后')
+            //  初始化显示之后立即调用
+            this.interId = setInterval(() => { //给定时器一个id存到this，清除定时器时 用this找到他
+                console.log(this.interId)
+                this.ishsow = !this.ishsow
+            },1000)
+         },
+// 更新阶段
+         beforeUpdate () {
+            console.log('更新之前')
+         },
+         updated () {
+            console.log('更新后')
+         },
+
+ //死亡阶段  
+         beforeDestroy() { //死亡之前调用一次
+            console.log('死亡前')
+            //  清除定时器
+            console.log(this)
+            clearInterval(this.interId)
+         },
+         destroyed() {
+            console.log('死亡后')
+         },
+         methods: {
+            destroyvm(){
+                this.$destroy()
+            }
+         },
+     })
+</script>
+</html>

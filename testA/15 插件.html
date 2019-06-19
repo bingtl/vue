@@ -8,26 +8,26 @@
 </head>
 <body>
     <div id="app"> <!--view-->
-        <input type="text" v-model="message">
-        <p>{{message}}</p>
+        <p v-my-directive="message"></p>
     </div>
 </body>
 <!-- 引入线上的Vue -->
 <script src="./vue.js"></script>
+<!-- 引入插件 -->
+<script src="./vue-myPlugin.js"></script>
 <script>
+    // 声明使用插件
+    Vue.use(MyPlugin) //函数内部会执行MyPlugin.install(vue)
+
+    Vue.myGlobalMethod()
     // 创建vue实例
-     const vm = new Vue({ //配置对象
-         el: '#app', //element 选择器，查找vue管理的区域
-         data: { //data：  数据（model）
+     const vm = new Vue({ 
+         el: '#app', 
+         data: { 
              message: 'Hello Vue!'
          }
      })
+     vm.$myMethod
 </script>
-<!-- 
-    MVVM：
-    model：         模型，本质上是数据对象（data）
-    view：          视图层，模板页面
-    viewModel：     视图模型（vue的实例） 也就是上面的vm
 
- -->
 </html>

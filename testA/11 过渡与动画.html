@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+/* 定义动画过程的transition 显示隐藏的过度 */
+    .xxx-enter-active, .xxx-leave-active{
+        transition: opacity 1s;
+    }
+    /* 隐藏时的样式 */
+    .xxx-enter, .xxx-leave-to{
+        opacity: 0;
+    }
+
+
+    /* 指定显示过渡效果 */
+    .yyy-enter-active{
+        transition: all 1s;
+    }
+
+      /* 指定隐藏过渡效果 */
+      .yyy-leave-active{
+        transition: all 3s;
+    }
+
+    /* 隐藏时的样式 */
+    .yyy-enter, .yyy-leave-to{
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    /* 文字放大缩小 */
+    .zzz-enter-active{
+        animation: bounce-in .5s;
+    }
+    .zzz-leave-active{
+        animation: bounce-in .5s reverse;
+    }
+    @keyframes bounce-in{
+        0%{
+            transform: scale(0);
+        }
+        50%{
+            transform: scale(1.5);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+</style>
+<body>
+    <div id="app"> <!--view-->
+        <button @click="isshow = !isshow">toggle</button>
+        <transition name = "xxx">
+            <p v-show="isshow">淡入淡出</p>
+        </transition>
+        <button @click="isshowB = !isshowB">toggle</button>
+        <transition name = "yyy">
+            <p v-show="isshowB">平移淡入淡出</p>
+        </transition>
+
+        <button  @click="isshowC = !isshowC">toggle</button> <br>
+        <transition name="zzz">
+            <p v-if="isshowC" style="display: inline-block">文字放大缩小</p>
+        </transition>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    // 创建vue实例
+     const vm = new Vue({ 
+         el: '#app', 
+         data: { 
+            isshow:true,
+            isshowB:true,
+            isshowC:true
+         }
+     })
+</script>
+</html>

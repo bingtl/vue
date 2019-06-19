@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+       <h2>绑定监听</h2>
+        <button @click="test1">test1</button>
+        <button @click="test2(2222)">test2</button>
+        <button @click="test3">test3</button>
+        <button @click="test4(444,$event)">test4</button>
+       <h2>事件修饰符</h2>
+       <h3>停止事件冒泡  @click.stop</h3>
+        <div style="width: 200px;height: 200px;background-color: #e55954" @click="test5">
+            <div style="width: 100px;height: 100px;background-color: aqua" @click.stop="test6"></div>
+        </div>
+        <h3>阻止事件默认行为 @click.prevent</h3>
+        <a href="http://www.baidu.com" @click.prevent="test7">baidu</a>
+
+       <h2>按键修饰符</h2>
+       <input type="text" @keyup.13="test8">
+       <input type="text" @keyup.enter="test8">
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            
+        },
+        methods: {
+            test1(){
+                alert('test1')
+            },
+            test2(val){
+                alert(val)
+            },
+            test3(event){
+                alert(event.target.innerHTML)
+            },
+            test4(val,event){
+                alert(val + '----' + event.target.innerHTML)
+            },
+            test5(){
+                alert('waimian')
+            },
+            test6(){
+                // 停止事件冒泡
+                alert('limian ')
+            },
+            test7(){
+                alert('dianjile')
+            },
+            test8(event){
+                // if(event.keyCode == 13){
+                //     alert(event.target.value)
+                // }
+                alert(event.target.value)
+            }
+        },
+    })
+</script>
+
+</html>

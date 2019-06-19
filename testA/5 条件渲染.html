@@ -8,8 +8,15 @@
 </head>
 <body>
     <div id="app"> <!--view-->
-        <input type="text" v-model="message">
-        <p>{{message}}</p>
+        <h2>v-if,v-else</h2>
+            <p v-if="ok">成功</p>
+            <p v-else>失败</p>
+        <h2>v-show</h2>
+            <p v-show="ok">成功</p>
+            <p v-show="!ok">失败</p>
+        <h2>比较v-if与v-show，如果需要频繁切换用v-show较好</h2>
+
+        <button @click="ok=!ok">切换</button>
     </div>
 </body>
 <!-- 引入线上的Vue -->
@@ -19,15 +26,8 @@
      const vm = new Vue({ //配置对象
          el: '#app', //element 选择器，查找vue管理的区域
          data: { //data：  数据（model）
-             message: 'Hello Vue!'
+             ok: false
          }
      })
 </script>
-<!-- 
-    MVVM：
-    model：         模型，本质上是数据对象（data）
-    view：          视图层，模板页面
-    viewModel：     视图模型（vue的实例） 也就是上面的vm
-
- -->
 </html>

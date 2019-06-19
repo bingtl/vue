@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"> <!--view-->
+        <h2>输入框实现模糊搜索</h2>
+       <input type="text" v-model="searchname">
+       <ul>
+           <li v-for="(p,index) in filterPersons" :key="index">
+               {{index}}---{{p.name}}---{{p.age}}
+           </li>
+       </ul>
+       <h2>点击按钮实现排序</h2>
+       <button @click="setordertype(1)">年龄升序</button>
+       <button  @click="setordertype(2)">年龄降序</button>
+       <button  @click="setordertype(0)">原本顺序</button>
+    </div>
+</body>
+<!-- 引入线上的Vue -->
+<script src="./vue.js"></script>
+<script>
+    const vm = new Vue({
+        el:'#app',
+        data:{
+            searchname:'',
+            ordertype:0, //0代表原本顺序，1代表升序，2代表降序
+            persons: [ 
+                 {name:'afd',age:'18'},
+                 {name:'cl',age:'20'},
+                 {name:'bbj',age:'19'},
+                 {name:'dke',age:'21'}
+             ]
+        },
+        computed: {
+            filterPersons(){
+                // 取出相关数据
+                const{searchname,persons,ordertype} = this
+                
+                //定义最终显示的数组
+                let fpersons
+
+                // 对persons进行过滤
+               fpersons =  persons.filter(p => p.name.indexOf(searchname) !==-1 )
+
+                // 排序
+                if(ordertype !==0){
+                    fpersons.sort(function(p1,p2){
+                        // 1代表升序，2代表降序
+
+                        // 返回负数p1前正数p2前
+                        if(ordertype === 2){
+                            return p2.age - p1.age  
+                        }else{
+                            return p1.age - p2.age  
+                        }
+                     
+                    })
+                }
+               return fpersons
+            }
+        },
+        methods: {
+            setordertype(val){
+                this.ordertype = val
+            }
+        },
+    })
+</script>
+</html> 
